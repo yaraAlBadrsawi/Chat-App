@@ -10,5 +10,6 @@ class Constants() {
         const val SENDER_ID="senderId"
         const val RECEIVER_ID="receiverId"
         const val MESSAGE_ID="messageId"
+        const val CURRENT_TIME="currentTime"
     }
 }

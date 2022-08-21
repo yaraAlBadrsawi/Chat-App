@@ -3,6 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Chat-App/app/src/main/res/drawable/background_icon_bottom_navigation.xml" value="0.161" />
+        <entry key="..\:/Chat-App/app/src/main/res/drawable/bg_btn_send.xml" value="0.1495" />
+        <entry key="..\:/Chat-App/app/src/main/res/drawable/blue_corenr.xml" value="0.1535" />
+        <entry key="..\:/Chat-App/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.1685" />
+        <entry key="..\:/Chat-App/app/src/main/res/drawable/ic_forward.xml" value="0.1495" />
+        <entry key="..\:/Chat-App/app/src/main/res/drawable/ic_send.xml" value="0.1495" />
+        <entry key="..\:/Chat-App/app/src/main/res/drawable/message_box.xml" value="0.1535" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/activity_main.xml" value="0.34276729559748426" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/fragment_home.xml" value="0.18" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/fragment_room_chat.xml" value="0.33" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/fragment_sign_in.xml" value="0.33" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/fragment_splash.xml" value="0.11956521739130435" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/receive_message_item.xml" value="0.5" />
+        <entry key="..\:/Chat-App/app/src/main/res/layout/sent_message_item.xml" value="0.67" />
+        <entry key="..\:/Chat-App/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25" />
         <entry key="..\:/Users/WELCOME/Desktop/ChatApp-kotlin/app/src/main/res/drawable/bg_btn_send.xml" value="0.1" />
         <entry key="..\:/Users/WELCOME/Desktop/ChatApp-kotlin/app/src/main/res/drawable/blue_corenr.xml" value="0.183" />
         <entry key="..\:/Users/WELCOME/Desktop/ChatApp-kotlin/app/src/main/res/drawable/ic_send.xml" value="0.126" />

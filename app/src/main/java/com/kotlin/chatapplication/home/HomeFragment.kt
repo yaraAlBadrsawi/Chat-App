@@ -1,5 +1,8 @@
 package com.kotlin.chatapplication.home
 
+import android.app.Activity
+import android.app.Instrumentation
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +32,10 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     lateinit var userList: MutableList<User>
     private lateinit var adapter: UserAdapter
-    private lateinit var firestore: FirebaseFirestore
+
+    private val firestore: FirebaseFirestore by lazy {
+        FirebaseFirestore.getInstance()
+    }
     private val TAG: String = "HomeFragment"
 
     override fun onCreateView(
@@ -34,15 +43,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        initObjects(inflater)
         getUserFromFirestore()
+        initObjects(inflater)
+
+        binding.profileImageIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+        }
         return binding.root
     }
 
 
     private fun initObjects(inflater: LayoutInflater) {
         this.binding = FragmentHomeBinding.inflate(inflater)
-        this.firestore = FirebaseFirestore.getInstance()
 
     }
 
@@ -59,23 +71,30 @@ class HomeFragment : Fragment() {
 
     private fun onSuccess(it: QuerySnapshot?) {
         userList= mutableListOf()
+        var user: User? =null
 
         for (userData in it!!) {
-            userList.add(userData.toObject(User::class.java))
+           user=userData.toObject(User::class.java)
+            userList.add(user)
+            if(user.uid==
+                FirebaseAuth.getInstance().currentUser?.uid){
+                userList.remove(user)
+            }
         }
 
-        binding.rec.layoutManager = LinearLayoutManager(activity)
 
-        adapter= activity?.let { it1 ->
-            UserAdapter(it1,userList, object : OnClickUserItem {
-                override fun onItemClick(postion: Int) {
-                    val bundle= bundleOf(Constants.USER_UID to userList[postion].uid)
+            binding.rec.layoutManager = LinearLayoutManager(activity)
+            adapter= activity?.let { it1 ->
+                UserAdapter(it1,userList, object : OnClickUserItem {
+                    override fun onItemClick(postion: Int) {
+                        val bundle= bundleOf(Constants.USER_UID to userList[postion].uid)
 
-                    Log.d(TAG, "onItemClick: user ID ->> ${bundle.getString(Constants.USER_UID)}")
-                    findNavController().navigate(R.id.action_homeFragment_to_roomChatFragment,bundle)
-                }
-            })
-        }!!
+                        Log.d(TAG, "onItemClick: user ID ->> ${bundle.getString(Constants.USER_UID)}")
+                        findNavController().navigate(R.id.action_homeFragment_to_roomChatFragment,bundle)
+                    }
+                })
+            }!!
+
 
         binding.rec.adapter = adapter
     }

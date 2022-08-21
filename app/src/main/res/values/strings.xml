@@ -12,4 +12,10 @@
     <string name="don_t_have_account">don\'t have account</string>
     <string name="loading">loading …</string>
     <string name="type_message_here">type message here</string>
+    <string name="already_have_account">Already have account!</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="chat">chat</string>
+    <string name="more">more</string>
+    <string name="people">people</string>
+    <string name="chats">Chats</string>
 </resources>

@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.api.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.kotlin.chatapplication.R
 import com.kotlin.chatapplication.model.Message
-import org.w3c.dom.Text
+//import java.text.DateFormat
+import android.text.format.DateFormat
 
 class MessageAdapter(private val activity:Activity, private val list:List<Message>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -48,10 +48,14 @@ class MessageAdapter(private val activity:Activity, private val list:List<Messag
 
             holder as SentMessageViewHolder
             holder.sentMessage.text=list[position].message
+            holder.time.text= DateFormat.format("hh:mm a",list[position].currentTime).toString()
+
         }else {
 
             holder as ReceiveMessageViewHolder
             holder.receiveMessage.text=list[position].message
+            holder.time.text= DateFormat.format("hh:mm a",list[position].currentTime).toString()
+
         }
     }
 
@@ -62,11 +66,14 @@ class MessageAdapter(private val activity:Activity, private val list:List<Messag
     class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val sentMessage:TextView=itemView.findViewById(R.id.sentMessage)
+        val time:TextView=itemView.findViewById(R.id.time)
+
     }
 
 
     class ReceiveMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val receiveMessage:TextView=itemView.findViewById(R.id.receiveMessage)
+        val time:TextView=itemView.findViewById(R.id.time)
 
     }
 

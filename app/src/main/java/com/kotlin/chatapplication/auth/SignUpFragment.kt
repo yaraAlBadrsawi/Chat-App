@@ -2,6 +2,7 @@ package com.kotlin.chatapplication.auth
 
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +29,10 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         // Inflate the layout for this fragment
         initObjects(inflater)
+        setActionOnHaveAccount()
         this.binding.btnLogin.setOnClickListener {
             register()
         }
@@ -43,18 +46,22 @@ class SignUpFragment : Fragment() {
         this.firestore = FirebaseFirestore.getInstance()
     }
 
+    private fun setActionOnHaveAccount(){
+        binding.haveAccount.setOnClickListener {
+            findNavController()
+                .navigate(R.id.action_signUpFragment_to_signInFragment)
+            Toast.makeText(activity, "no account", Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun register() {
 
         val email = binding.regisEmail.text.toString()
         val password = binding.regisPassword.text.toString()
         val name= binding.regisUser.text.toString()
 
-        if(email.isEmpty() || password.isEmpty()){
-            Toast.makeText(activity,"field can't be empty",Toast.LENGTH_LONG).show()
-        }
 
-        else{
-
+        if(checkField(email,password,name)){
             firebaseAuth.createUserWithEmailAndPassword(
                 email, password
             ).addOnSuccessListener {
@@ -73,6 +80,39 @@ class SignUpFragment : Fragment() {
 
                 }
         }
+    }
+
+    fun checkField(email:String,pass:String,name:String):Boolean{
+        if(email.isEmpty()){
+            binding.regisEmail.error="Email Required!"
+            binding.regisEmail.requestFocus()
+            return false
+        }
+
+        if(pass.isEmpty()) {
+            binding.regisPassword.error="password Required!"
+            binding.regisPassword.requestFocus()
+            return false
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            binding.regisEmail.error="please enter valid email"
+            binding.regisEmail.requestFocus()
+            return false
+        }
+
+        if(pass.length<6){
+            binding.inputPass.error="password should be 6 at least"
+            binding.inputPass.requestFocus()
+            return false
+        }
+
+        if(name.isEmpty()){
+            binding.inputPass.error="please enter your name"
+            binding.inputPass.requestFocus()
+            return false
+        }
+        return true
     }
 
     private fun addUserToFirestore(user:User) {
